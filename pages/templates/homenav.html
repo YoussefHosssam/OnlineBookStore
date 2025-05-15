@@ -1,0 +1,15 @@
+<nav>
+    <div class="logo">
+      <a id="logo" data-text="BORRI" href="{% url 'index' %}">
+          <span class="logo-text">Borri</span>
+      </a>
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+            <li><a href="{% url 'login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Log In</a></li>
+            <li><a href="{% url 'signup' %}" class="{% if request.path == '/signup/' %}active{% endif %}">Sign up</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
+  </nav>

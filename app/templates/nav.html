@@ -1,0 +1,49 @@
+<nav>
+    <div class="logo">
+        <a id="logo" data-text="BORRI" href="{% url 'index' %}">
+            <span class="logo-text">Borri</span>
+        </a>
+    </div>
+    <div class="menu">
+        <ul class = "ul">
+            <li><a href="{% url 'index' %}" class="active">Home</a></li>
+            <li class="services-item">
+                <a href="#" tabindex="0">Services</a>
+                <ul class="services-dropdown">
+                    <li><a href="{% url 'list' %}"><i class="fa-solid fa-list"></i> List Books</a></li>
+                    <li><a href="{% url 'borrowed' %}"><i class="fa-solid fa-list"></i> List Borrowed Books</a></li>
+                </ul>
+            </li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
+    <div class="nav-right" id="searchbar">
+        <div class="search-container">
+            <form style="display: flex; align-items: center;">
+                {%csrf_token%}
+                <!-- Dropdown for search type -->
+                <select name="type" id="search-type" style="margin-right: 10px; padding: 0.6rem; border-radius: 25px; border: 1px solid #ddd; font-size: 0.9rem;">
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="category">Category</option>
+                </select>
+    
+                <!-- Input for search -->
+                <div style="position: relative;">
+                    <input type="search" id="search" name="search_term" placeholder="Search for a book...">
+                    <button id='search-btn' class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+        </div> 
+    </div>
+    <div class="profile-dropdown">
+        <button class="profile-btn">
+            <i class="fas fa-user-circle"></i>
+            <i class="fas fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile Details</a></li>
+            <li><a style="cursor: pointer;" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>  
+</nav>

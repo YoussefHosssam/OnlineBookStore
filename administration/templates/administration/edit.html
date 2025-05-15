@@ -1,0 +1,163 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit | BORRI</title>
+    <link rel="stylesheet" href="{% static 'css/add.css'%}">
+    <link rel="stylesheet" href="{% static 'css/edit.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+        <nav>
+        <div class="logo">
+            <a id="logo" data-text="BORRI" href="{% url 'administration'%}">
+                <span class="logo-text">Borri</span>
+            </a>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="{% url 'administration' %}">Home</a></li>
+                <li class="services-item">
+                    <a href="#" tabindex="0">Services</a>
+                    <ul class="services-dropdown">
+                        <li><a href="{% url 'list' %}"><i class="fa-solid fa-list"></i> List Books</a></li>
+                        <li><a href="{% url 'borrowed' %}"><i class="fa-solid fa-list"></i> List Borrowed Books</a></li>
+                        <li><a href="{% url 'users' %}"><i class="fa-solid fa-list"></i> List Users</a></li>
+                        <li><a href="{% url 'add' %}"><i class="fas fa-plus-circle"></i> Add Book</a></li>
+                        <li><a href="#"><i class="fa-regular fa-pen-to-square"></i> Edit Book</a></li>
+                    </ul>
+                </li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="search-container">
+                <form action="search.php" method="get" style="display: flex; align-items: center;">
+                    <select name="type" id="search-type" style="margin-right: 10px; padding: 0.6rem; border-radius: 25px; border: 1px solid #ddd; font-size: 0.9rem;">
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="category">Category</option>
+                    </select>
+        
+                    <div style="position: relative;">
+                        <input type="search" id="search" name="search" placeholder="Search for a book...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+    
+            </div>
+            <div class="profile-dropdown">
+                <button class="profile-btn">
+                    <i class="fas fa-user-circle"></i>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'profile'%}"><i class="fas fa-user"></i> Profile Details</a></li>
+                    <li><a style="cursor: pointer;" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>               
+                </ul>
+            </div>
+        </div>  
+    </nav>
+ 
+    <main class="book-container" id="book-list">
+        <h1 class="page-title">Edit Books</h1>
+        <div class="book-panels" id="book-panels">
+            
+        </div>
+        </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about" id="about">
+                <h3>About BORRI</h3>
+                <p>Welcome to BORRI, your go-to online book hub! Easily add, browse, and borrow books with a seamless experience. Whether you’re sharing your collection or discovering new reads, we make book access simple and efficient.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BORRI. All rights reserved.</p>
+        </div>
+    </footer>
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2 id="book-name-head"></h2>
+            <form id="editUserForm">
+                <div class="form-group">
+                    <label for="id">Book ID</label>
+                    <input type="number" id="id" name="id">
+                </div>
+                <div class="form-group">
+                    <label for="title">Book Title</label>
+                    <input type="text" id="title" name="title">
+                </div>
+                
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author">
+                </div>
+                
+                <div class="form-group">
+                    <label for="genre">Category</label>
+                    <select id="genre" name="genre">
+                        <option value="">Select a category</option>
+                        <option value="Fiction">Fiction</option>
+                        <option value="Non-fiction">Non-Fiction</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Sci-fi">Science Fiction</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Biography">Biography</option>
+                        <option value="History">History</option>
+                        <option value="Self-help">Self-Help</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>Book Cover</label>
+                    <div class="current-cover-container">
+                        <p>Current Cover:</p>
+                        <img id="currentCover" class="cover-preview" src="" alt="Current book cover">
+                    </div>
+                    <div class="cover-upload">
+                        <label for="coverImage" class="upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload new book cover image</p>
+                            <input type="file" id="coverImage" name="coverImage" accept="image/*" style="display: none;">
+                        </label>
+                    </div>
+                    <img id="coverPreview" class="cover-preview" alt="New book cover preview" style="display: none;">
+                </div>     
+                
+                <button type="submit" class="submit-btn">
+                    Edit Book <i class="fas fa-plus-circle"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div id="deleteUserModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this book? This action cannot be undone.</p>
+            <div class="confirmation-buttons">
+                <button id="confirmDelete" class="delete-btn">Delete</button>
+                <button id="cancelDelete" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/edit.js' %}"></script>
+</body>
+</html>

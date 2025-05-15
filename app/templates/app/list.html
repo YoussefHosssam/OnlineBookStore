@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books | BORRI</title>
+    <link rel="stylesheet" href="{% static 'css/list.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body data-user-id="{{ request.user.id }}">
+    <div class="background-overlay"></div>
+        {% if request.user.role == 'admin' %}
+            {% include 'adminnav.html'  %}
+        {% elif request.user.role == 'user' %}
+            {% include 'nav.html'  %}
+    {% endif %} 
+    <main class="book-container" id="book-list">
+        <h1 id='page-title' class="page-title">List Books</h1>
+        <div class="pagination-container">
+            <div class="pagination-list">
+                <ul class="ulpagin">
+                    {% if page_obj.has_previous %}
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}" title="Previous">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                    {% endif %}
+        
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="active"><a href="?page={{ num }}"><span>{{ num|stringformat:"02d" }}</span></a></li>
+                        {% else %}
+                            <li><a href="?page={{ num }}"><span>{{ num|stringformat:"02d" }}</span></a></li>
+                        {% endif %}
+                    {% endfor %}
+        
+                    {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}" title="Next">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        </main>
+            <style>
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 40px; /* Less padding */
+    margin-top: 20px;
+}
+
+.pagination-list {
+    background-color: var(--white);
+    padding: 6px 12px; /* Smaller padding */
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem; /* Slightly smaller text */
+}
+
+.ulpagin {
+    display: flex;
+    gap: 6px; /* Less space between buttons */
+    margin: 0;
+    padding: 0;
+}
+
+.ulpagin li {
+    list-style: none;
+}
+
+.ulpagin li a {
+    display: inline-block;
+    padding: 6px 10px; /* Smaller button size */
+    font-weight: 500;
+    border-radius: 5px;
+    color: var(--dark-color);
+    background-color: var(--secondary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.ulpagin li.active a {
+    background-color: var(--accent-color);
+    color: var(--white);
+    pointer-events: none;
+}
+
+.ulpagin li a:hover {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+.ulpagin li a i {
+    font-size: 0.8rem; /* Smaller icons */
+    transition: var(--transition);
+}
+
+.ulpagin li a:hover i {
+    color: var(--white);
+}
+</style>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about" id="about">
+                <h3>About BORRI</h3>
+                <p>Welcome to BORRI, your go-to online book hub! Easily add, browse, and borrow books with a seamless experience. Whether you’re sharing your collection or discovering new reads, we make book access simple and efficient.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BORRI. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/list.js' %}" ></script>
+</body>
+</html>

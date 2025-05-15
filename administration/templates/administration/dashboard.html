@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BORRI</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <nav>
+        <div class="logo">
+            <a id="logo" data-text="BORRI" href="#">
+                <span class="logo-text">Borri</span>
+            </a>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#"class="active">Home</a></li>
+                <li class="services-item">
+                    <a href="#" tabindex="0">Services</a>
+                    <ul class="services-dropdown">
+                        <li><a href="{% url 'list' %}"><i class="fa-solid fa-list"></i> List Books</a></li>
+                        <li><a href="{% url 'borrowed' %}"><i class="fa-solid fa-list"></i> List Borrowed Books</a></li>
+                        <li><a href="{% url 'users' %}"><i class="fa-solid fa-list"></i> List Users</a></li>
+                        <li><a href="{% url 'add' %}"><i class="fas fa-plus-circle"></i> Add Book</a></li>
+                        <li><a href="{% url 'edit' %}"><i class="fa-regular fa-pen-to-square"></i> Edit Book</a></li>
+                    </ul>
+                </li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+        <div class="profile-dropdown">
+            <button class="profile-btn">
+                <i class="fas fa-user-circle"></i>
+                <i class="fas fa-caret-down"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{% url 'profile'%}"><i class="fas fa-user"></i> Profile Details</a></li>
+                <li><a style="cursor: pointer;" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>            
+            </ul>
+        </div>
+    </nav>
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Welcome, {{user.username}}</h1>
+            <p class="subtitle">Borrow the Story, Keep the Experience.</p>
+            <div class="hero-buttons">
+                <a href="{% url 'list'%}" class="btn-primary">View Books</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="book-section" id="book">
+            <div class="book-container">
+                <div class="book-cover">
+                    <img src="{% static 'img/side.jpg'%}" alt="INTER-COM ON STARTING UP Book Cover" loading="lazy">
+                </div>
+                <div class="book-content">
+                    <h2>What's inside</h2>
+                    <p>Explore a growing library of books you can borrow online—save space, money, and shelf clutter.</p>
+                    <ul class="content-list">
+                        <li>Quickly create an account or log in to start borrowing instantly.</li>
+                        <li>New books added regularly, based on user interest and community favorites.</li>
+                        <li>And more</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about" id="about">
+                <h3>About BORRI</h3>
+                <p>Welcome to BORRI, your go-to online book hub! Easily add, browse, and borrow books with a seamless experience. Whether you’re sharing your collection or discovering new reads, we make book access simple and efficient.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BORRI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

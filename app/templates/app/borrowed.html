@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed | BORRI</title>
+    <link rel="stylesheet" href="{% static 'css/borrowed.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body  data-user-role="{{ request.user.role }}" data-user-id="{{ request.user.id }}">
+    <div class="background-overlay"></div>
+        {% if request.user.role == 'admin' %}
+            {% include 'adminnav.html' %}
+        {% elif request.user.role == 'user'  %}
+            {% include 'nav.html' %}
+    {% endif %} 
+    <main class="book-container" id="book-list">
+        <h1 class="page-title">Borrowed Books</h1>
+        </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about" id="about">
+                <h3>About BORRI</h3>
+                <p>Welcome to BORRI, your go-to online book hub! Easily add, browse, and borrow books with a seamless experience. Whether you’re sharing your collection or discovering new reads, we make book access simple and efficient.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BORRI. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/borrowed.js' %}" ></script>
+    <div id="returnModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Confirm Return</h2>
+            <p>Are you sure you want to return this book? This action cannot be undone.</p>
+            <div class="confirmation-buttons">
+                <button id="confirmReturn" class="return-btn">Return</button>
+                <button id="cancelReturn" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

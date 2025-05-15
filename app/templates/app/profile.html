@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - BORRI</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .services-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    transform: translateY(10px);
+    z-index: 1000;
+}
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    {% if request.user.role == 'admin' %}
+    {% include 'adminnav.html' %}
+{% elif request.user.role == 'user' %}
+    {% include 'nav.html' %}
+{% endif %}     
+<style>
+    #searchbar {
+        display: none;
+    }
+</style>
+    <main class="profile-container">
+        <section class="profile-section">
+            <div class="profile-header">
+                <h1><i class="fas fa-user-circle"></i> User Profile</h1>
+                <p>Manage your account information and preferences</p>
+            </div>
+            
+            <form class="profile-form" id="profile-form">
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input">
+                        <input type="password" id="password" value="" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone">
+                </div>
+
+                <div class="form-group">
+                    <label>Account Role</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="role" id="user" value="user" checked>
+                            <span class="radio-custom"></span>
+                            <span class="radio-label">User</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="role" id="admin" value="admin">
+                            <span class="radio-custom"></span>
+                            <span class="radio-label">Admin</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Reading Level</label>
+                    <div class="reading-levels">
+                        <label class="level-option">
+                            <input type="radio" name="reading-level" value="beginner">
+                            <div class="level-card">
+                                <i class="fas fa-book-open"></i>
+                                <h3>Beginner</h3>
+                                <p>Just starting to explore books</p>
+                            </div>
+                        </label>
+                        <label class="level-option">
+                            <input type="radio" name="reading-level" value="intermediate" checked>
+                            <div class="level-card">
+                                <i class="fas fa-book-reader"></i>
+                                <h3>Intermediate</h3>
+                                <p>Regular reader with some experience</p>
+                            </div>
+                        </label>
+                        <label class="level-option">
+                            <input type="radio" name="reading-level" value="advanced">
+                            <div class="level-card">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h3>Advanced</h3>
+                                <p>Advanced reader with wide experience</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about" id="about">
+                <h3>About BORRI</h3>
+                <p>Welcome to BORRI, your go-to online book hub! Easily add, browse, and borrow books with a seamless experience. Whether you're sharing your collection or discovering new reads, we make book access simple and efficient.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BORRI. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="{% static 'js/profile.js' %}"></script>
+</body>
+</html>

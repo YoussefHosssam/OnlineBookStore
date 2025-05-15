@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BORRI</title>
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="arrow-btn" id="arrow-btn">
+        <button id="up-btn"><i class="fa-solid fa-arrow-up"></i></button>
+    </div>
+    {% include 'homenav.html' %}
+    <div id="down-nav">
+        <p id="down-nav-text">Why Buy? Borrow the Best Books Instantly!</p>
+    </div>
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Discover Worlds Between Pages</h1>
+            <p class="subtitle">Borrow the Story, Keep the Experience.</p>
+            <div class="hero-buttons">
+                <a href="{% url 'signup'%}" class="btn-secondary">Join Our Community</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="book-section" id="book">
+            <div class="book-container">
+                <div class="book-cover">
+                    <img src="{% static 'img/side.jpg'%}" alt="INTER-COM ON STARTING UP Book Cover" loading="lazy">
+                </div>
+                <div class="book-content">
+                    <h2>What's inside</h2>
+                    <p>Explore a growing library of books you can borrow online—save space, money, and shelf clutter.</p>
+                    <ul class="content-list">
+                        <li>Quickly create an account or log in to start borrowing instantly.</li>
+                        <li>New books added regularly, based on user interest and community favorites.</li>
+                        <li>And more</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'footer.html' %}
+    <script>
+
+        document.getElementById("arrow-btn").addEventListener("mouseenter" , ()=>{
+            document.getElementById("arrow-btn").style.backgroundColor = "#D7B899";
+            document.getElementById("up-btn").style.color = "black" ;
+        })
+        document.getElementById("arrow-btn").addEventListener("mouseleave" , ()=>{
+            document.getElementById("arrow-btn").style.backgroundColor = "#A67C52";
+            document.getElementById("up-btn").style.color = "#F5F0E6" ;
+        })
+        document.addEventListener("scroll",()=> {
+            const y = window.scrollY;
+            const box = document.getElementById("arrow-btn");
+          
+            if (y > 511.20001220703125) {
+                box.style.display = "flex";
+            } else {
+                box.style.display = "none";
+            }
+          });
+          document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("arrow-btn").addEventListener("click", () => {
+                window.scrollTo(0, 0);
+            });
+            const textElement = document.getElementById('down-nav-text');
+            
+            // Duplicate text for seamless looping
+            
+            // Pause animation on hover
+            const navElement = document.getElementById('down-nav');
+            navElement.addEventListener('mouseenter', function() {
+                textElement.style.animationPlayState = 'paused';
+            });
+            navElement.addEventListener('mouseleave', function() {
+                textElement.style.animationPlayState = 'running';
+            });
+        
+            
+          });
+        
+        
+        </script>
+</body>
+</html>
