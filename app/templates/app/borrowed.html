@@ -45,5 +45,64 @@
             </div>
         </div>
     </div>
+    <style>
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0 40px; /* Less padding */
+            margin-top: 20px;
+        }
+        
+        .pagination-list {
+            background-color: var(--white);
+            padding: 6px 12px; /* Smaller padding */
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            font-size: 0.85rem; /* Slightly smaller text */
+        }
+        
+        .ulpagin {
+            display: flex;
+            gap: 6px; /* Less space between buttons */
+            margin: 0;
+            padding: 0;
+        }
+        
+        .ulpagin li {
+            list-style: none;
+        }
+        
+        .ulpagin li a {
+            display: inline-block;
+            padding: 6px 10px; /* Smaller button size */
+            font-weight: 500;
+            border-radius: 5px;
+            color: var(--dark-color);
+            background-color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .ulpagin li.active a {
+            background-color: var(--accent-color);
+            color: var(--white);
+            pointer-events: none;
+        }
+        
+        .ulpagin li a:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+        
+        .ulpagin li a i {
+            font-size: 0.8rem; /* Smaller icons */
+            transition: var(--transition);
+        }
+        
+        .ulpagin li a:hover i {
+            color: var(--white);
+        }
+        </style>
 </body>
 </html>

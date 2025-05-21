@@ -12,8 +12,10 @@ from books.models import Book , BorrowedBook
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404
 from django.core.files.base import ContentFile
+from datetime import timedelta
 import base64
 import uuid
+from .utils import otp_generator
 from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -117,6 +119,7 @@ def profileinfo(request):
         'age' : user.age,
         'phone' : user.phone,
         'role': user.role ,
+        'otp_verified' : user.otp_verified,
         'reading_level' : user.reading_level ,
     }
     return JsonResponse(data)
@@ -422,6 +425,7 @@ def booksearch (request) :
                 for b in books:
                     data.append({
                         'BID': b.book.BID,
+                        'user_id': b.user.id,
                         'title': b.book.title,
                         'author': b.book.author,
                         'category': b.book.category,
@@ -531,5 +535,43 @@ def returnbook(request, book_id):
 
         except Book.DoesNotExist:
             return JsonResponse({"error": "Book not found."}, status=404)
+
+    return JsonResponse({"error": "Invalid request method."}, status=405)
+
+@csrf_exempt
+def send_otp(request , user_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        phone_number = data.get('phone')
+        if not phone_number:
+            return JsonResponse({"error": "Phone number is required."}, status=400)
+        otp = otp_generator(phone_number)
+        user = User.objects.get(id=user_id)
+        user.otp = otp
+        user.otp_created_at = timezone.now()
+        user.save()
+        return JsonResponse({"message": "OTP sent successfully."}, status=200)
+    return JsonResponse({"error": "Invalid request method."}, status=405)
+
+@csrf_exempt
+def verify_otp(request, user_id):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return JsonResponse({"error": "User not found."}, status=404)
+
+        # Check OTP match
+        submitted_otp = request.POST.get('otp') or json.loads(request.body).get('otp')
+        if user.otp != submitted_otp:
+            return JsonResponse({"error": "Invalid OTP."}, status=400)
+
+        # Success
+        user.otp_verified = True
+        user.otp = None
+        user.otp_created_at = None
+        user.save()
+
+        return JsonResponse({"message": "OTP verified successfully."}, status=200)
 
     return JsonResponse({"error": "Invalid request method."}, status=405)

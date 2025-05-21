@@ -77,7 +77,7 @@ function renderbook(books, list) {
                     </div>
                     <div class="form-group">
                         <label for="phone${book.BID}">Phone Number</label>
-                        <input type="tel" id="phone${book.BID}" name="phone">
+                        <input type="tel" id="phone${book.BID}" name="phone" readonly>
                     </div>
                     <div class="form-group">
                         <label for="duration${book.BID}">How long will you keep the book?</label>
@@ -144,8 +144,8 @@ document.addEventListener('submit', function (e) {
             isValid = false;
         }
 
-        if (!phone.value || !/^\d{10,15}$/.test(phone.value)) {
-            showMessage("Valid phone number is required (10-15 digits)", 2, form);
+        if (!phone.value ) {
+            showMessage("Please verify your phone number first", 2, form);
             isValid = false;
         }
 

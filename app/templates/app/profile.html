@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        
         .services-dropdown {
     position: absolute;
     top: 100%;
@@ -27,7 +28,7 @@
 }
     </style>
 </head>
-<body>
+<body data-user-id="{{ request.user.id }}">
     <div class="background-overlay"></div>
     {% if request.user.role == 'admin' %}
     {% include 'adminnav.html' %}
@@ -71,8 +72,58 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone">
+                    <div class="phone-input-group">
+                        <input type="tel" id="phone">
+                        <span id="masked-phone" class="masked-phone"></span>
+                        <button type="button" id="verify-phone-btn" class="btn-verify">Verify</button>
+                        <i class="fas fa-check-circle phone-verified-icon" style="display: none;"></i>
+                    </div>
                 </div>
+
+<!-- Add this modal structure before the closing </body> tag -->
+<div id="verification-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Verify Phone Number</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="confirm-number-step">
+                <p>Is this your correct phone number?</p>
+                <p id="display-phone-number" class="phone-number-display"></p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel">No, Edit</button>
+                    <button type="button" id="confirm-number-btn" class="btn-continue">Yes, Continue</button>
+                </div>
+            </div>
+            
+            <div id="enter-otp-step" style="display: none;">
+                <p>We've sent a 4-digit code to your phone. Please enter it below:</p>
+                <div class="otp-input-container">
+                    <input type="text" id="otp1" maxlength="1" class="otp-digit">
+                    <input type="text" id="otp2" maxlength="1" class="otp-digit">
+                    <input type="text" id="otp3" maxlength="1" class="otp-digit">
+                    <input type="text" id="otp4" maxlength="1" class="otp-digit">
+                </div>
+                <p id="resend-otp-text" class="resend-text">Didn't receive code? <a href="#" id="resend-otp-link">Resend</a> in <span id="countdown">30</span>s</p>
+                <div class="modal-actions">
+                    <button type="button" id="verify-otp-btn" class="btn-continue">Verify</button>
+                </div>
+            </div>
+            
+            <div id="verification-success" style="display: none;">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Phone Verified Successfully!</h3>
+                <p>Your phone number has been verified.</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn-continue close-success-modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <div class="form-group">
                     <label>Account Role</label>
@@ -122,7 +173,7 @@
 
                 <div class="form-actions">
                     <button type="button" class="btn-cancel">Cancel</button>
-                    <button type="submit" class="btn-save">Save Changes</button>
+                    <button id="save-changes" type="submit" class="btn-save">Save Changes</button>
                 </div>
             </form>
         </section>

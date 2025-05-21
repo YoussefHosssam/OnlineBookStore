@@ -20,4 +20,6 @@ urlpatterns = [
     path('user/password/reset/' , views.resetpassword , name='resetpassword'),
     path('user/password/reset/confirm/<uidb64>/<token>/' , views.resetpasswordconfirm , name='resetpasswordconfirm'),
     path('book/return/<int:book_id>/' , views.returnbook , name='returnbook'),
+    path('auth/phone/send_otp/<int:user_id>/' , views.send_otp , name='send_otp'),
+    path('auth/phone/verify_otp/<int:user_id>/' , views.verify_otp , name='verify_otp'),
 ]

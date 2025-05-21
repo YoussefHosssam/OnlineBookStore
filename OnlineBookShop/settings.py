@@ -76,8 +76,23 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'youssefhossam323@gmail.com'
-EMAIL_HOST_PASSWORD = 'mznw ugdd dkuz mzkr'
+EMAIL_HOST_USER = 'borribookstore@gmail.com'
+EMAIL_HOST_PASSWORD = 'zjwf sdgh mhln vsks'
+
+
+
+
+TWILIO_ACCOUNT_SID = 'AC6471065289ee1463a032a2202736988a'
+TWILIO_AUTH_TOKEN = 'd07fdac9907900a34edb51ed862d7fe7'
+TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # From sandbox
+
+
+
+# Maximum size (in bytes) for request body before raising RequestDataTooBig
+DATA_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25 MB (default is 2.5MB)
+
+# Optional: Limit size of uploaded files
+FILE_UPLOAD_MAX_MEMORY_SIZE = 26214400  # 25 MB
 
 TEMPLATES = [
     {

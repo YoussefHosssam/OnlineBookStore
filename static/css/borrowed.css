@@ -437,7 +437,7 @@ nav {
     margin-top: 1.2rem;
 }
 
-.borrow-btn {
+.return-btn {
     display: inline-block;
     padding: 0.6rem 1.2rem;
     background: var(--primary-color);
@@ -452,7 +452,7 @@ nav {
     flex: 1;
 }
 
-.borrow-btn:hover {
+.return-btn:hover {
     background: var(--accent-color);
 }
 
@@ -520,6 +520,40 @@ nav {
 .close-btn:hover {
     color: var(--primary-color);
 }
+.cancel-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+.success-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 4px;
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.cancel-btn:hover {
+    background-color: #c5a887;
+}
+
 
 /* Book Info Modal Specific Styles */
 .book-info-modal {
@@ -635,58 +669,6 @@ footer {
     position: relative;
     padding-bottom: 1rem;
 }
-.modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-  .modal-content {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: var(--shadow);
-    position: relative;
-    color: var(--text-color);
-}
-#returnModal:target {
-    display: flex;
-}
-.return-btn {
-    background-color:var(--success-color);
-    color: var(--white);
-}
-.return-btn:hover {
-    background-color: rgb(177, 34, 13);
-}
-.confirmation-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.cancel-btn {
-    padding: 0.5rem 1rem;
-    background-color: var(--secondary-color);
-    color: var(--dark-color);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.cancel-btn:hover {
-    background-color: #c5a887;
-}
-
 
 .footer-section h3::after {
     content: '';

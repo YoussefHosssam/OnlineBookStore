@@ -71,6 +71,9 @@ class User(AbstractBaseUser , PermissionsMixin):
         choices=READING_LEVEL_CHOICES,
         default='intermediate',  # since your HTML checks intermediate by default
     )
+    otp = models.CharField(max_length=6, blank=True, null=True)
+    otp_created_at = models.DateTimeField(blank=True, null=True)
+    otp_verified = models.BooleanField(default=False)
     books_borrowed = models.PositiveIntegerField(default=0)
     last_login = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
@@ -89,3 +92,9 @@ class User(AbstractBaseUser , PermissionsMixin):
         ordering = ['username']
         verbose_name = 'User'
         db_table = 'users_table'
+        
+    def save(self, *args, **kwargs):
+        if self.pk is None or not self.password.startswith('pbkdf2_sha256$'):
+            self.set_password(self.password)
+        super().save(*args, **kwargs)
+
